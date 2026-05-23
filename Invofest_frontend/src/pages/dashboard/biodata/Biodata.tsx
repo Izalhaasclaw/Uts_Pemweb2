@@ -5,7 +5,7 @@ export default function BiodataIndex() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-[#3e2f1c]">
+        <h1 className="text-2xl font-bold text-[]">
           Biodata Mahasiswa
         </h1>
       </div>
@@ -13,7 +13,7 @@ export default function BiodataIndex() {
       <div className="flex flex-col md:flex-row gap-6">
 
         {/* Profile Card */}
-        <div className="w-full md:w-1/3 bg-[#f8f5f0] rounded-2xl shadow-sm border border-[#7d2020] overflow-hidden flex justify-center">
+        <div className="w-full md:w-1/3 bg-[#ffffff] rounded-2xl shadow-sm border border-[#7d2020] overflow-hidden flex justify-center">
           <div className="flex flex-col pb-8 px-6 py-8 justify-center items-center">
 
             <img
@@ -22,15 +22,15 @@ export default function BiodataIndex() {
               className="w-32 h-32 rounded-full border-4 border-[#7d2020] shadow-md bg-white mb-4 object-cover"
             />
 
-            <h2 className="text-xl font-bold text-[#3e2f1c]">
+            <h2 className="text-xl font-bold text-[#402d15]">
               Faizal Isman
             </h2>
 
-            <span className="text-sm font-medium bg-[#ffffff] text-[#6b4c2f] px-3 py-1 rounded-full mt-2 border border-[#7d2020]">
+            <span className="text-sm font-medium bg-[#ffffff] text-[#402d15] px-3 py-1 rounded-full mt-2 border border-[#7d2020]">
               D4 Teknik Informatika
             </span>
 
-            <span className="text-sm font-medium bg-[#ffffff] text-[#6b4c2f] px-3 py-1 rounded-full mt-2 border border-[#7d2020]">
+            <span className="text-sm font-medium bg-[#ffffff] text-[#402d15] px-3 py-1 rounded-full mt-2 border border-[#7d2020]">
               Universitas Harkat Negeri
             </span>
 
@@ -39,14 +39,14 @@ export default function BiodataIndex() {
 
         {/* Detail */}
         <div className="w-full md:w-2/3 bg-[#ffffff] rounded-2xl shadow-sm border border-[#7d2020] p-8">
-          <h3 className="text-lg font-bold text-[#3e2f1c] border-b border-[#7d2020] pb-4 mb-6">
+          <h3 className="text-lg font-bold text-[#000000] border-b border-[#7d2020] pb-4 mb-6">
             Informasi Detail
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
 
             <div className="flex flex-col">
-              <span className="text-sm text-[#7a6a58] mb-1">
+              <span className="text-sm text-[#000000] mb-1">
                 Nama Lengkap
               </span>
               <span className="font-semibold text-[#3e2f1c]">

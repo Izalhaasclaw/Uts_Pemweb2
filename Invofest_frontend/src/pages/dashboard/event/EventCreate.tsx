@@ -100,8 +100,8 @@ export default function EventCreate() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
-      <div className="bg-[#ffffff] rounded-2xl shadow-md p-8 border border-red-900">
-        <h2 className="text-2xl font-bold text-red-900 mb-6 border-b border-red-900 pb-4">
+      <div className="bg-[#ffffff] rounded-2xl shadow-md p-8 border border-[#ffffff]">
+        <h2 className="text-2xl font-bold text-red-900 mb-6 border-b border-[#ffffff] pb-4">
           Add New Event
         </h2>
 
@@ -136,12 +136,12 @@ export default function EventCreate() {
           />
 
           <div>
-            <label className="block mb-2 font-medium text-red-900">
+            <label className="block mb-2 font-medium text-[#3e2f1c]">
               Category Event
             </label>
             <select
               {...register("categoryId")}
-              className="w-full px-4 py-3 rounded-xl border border-[#d6c7b2] bg-white"
+              className="w-full px-4 py-3 rounded-xl border border-[#000000] bg-white"
             >
               <option value="">Pilih Category Event</option>
               {categories.map((item) => (
@@ -156,12 +156,12 @@ export default function EventCreate() {
           </div>
 
           <div>
-            <label className="block mb-2 font-medium text-red-900">
+            <label className="block mb-2 font-medium text-[#3e2f1c]">
               Pembicara
             </label>
             <select
               {...register("pembicaraId")}
-              className="w-full px-4 py-3 rounded-xl border border-[#d6c7b2] bg-white"
+              className="w-full px-4 py-3 rounded-xl border border-[#000000] bg-white"
             >
               <option value="">Pilih Pembicara</option>
               {pembicara.map((item) => (

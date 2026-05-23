@@ -69,7 +69,7 @@ export default function EventIndex() {
 
       <Link
         to="/dashboard/event/create"
-        className="inline-block px-5 py-3 rounded-2xl font-medium bg-red-900 text-white hover:bg-red-700 transition shadow-sm mb-6"
+        className="inline-block px-5 py-3 rounded-2xl font-medium bg-red-900 text-[#ffffff] hover:bg-red-700 transition shadow-sm mb-6"
       >
         Create New
       </Link>
@@ -78,27 +78,27 @@ export default function EventIndex() {
         {events.map((item) => (
           <div
             key={item.id}
-            className="w-80 px-6 py-4 bg-[#f8f5f0] border border-red-900 rounded-2xl shadow-sm text-[#3e2f1c] hover:shadow-md transition"
+            className="w-80 px-6 py-4 bg-[#ffffff] border border-[#ffffff] rounded-2xl shadow-sm text-[#3e2f1c] hover:shadow-md transition"
           >
             <p className="font-semibold">{item.title}</p>
 
-            <p className="text-sm text-red-900 mt-1">
+            <p className="text-sm text-black mt-1">
               Lokasi: {item.location}
             </p>
 
-            <p className="text-sm text-red-900 mt-1">
+            <p className="text-sm text-black mt-1">
               Tanggal: {new Date(item.dateEvent).toLocaleDateString("id-ID")}
             </p>
 
-            <p className="text-sm text-red-900 mt-1">
+            <p className="text-sm text-black mt-1">
               Category: {item.category?.name}
             </p>
 
-            <p className="text-sm text-red-900 mt-1">
+            <p className="text-sm text-black mt-1">
               Pembicara: {item.pembicara?.name}
             </p>
 
-            <p className="text-sm text-red-900 mt-2">
+            <p className="text-sm text-black mt-2">
               {item.description}
             </p>
 

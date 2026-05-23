@@ -64,7 +64,7 @@ export default function PembicaraIndex() {
         {pembicara.map((item) => (
           <div
             key={item.id}
-            className="w-72 px-6 py-4 bg-[#f8f5f0] border border-[#e0d6c8] rounded-2xl shadow-sm text-[#3e2f1c] hover:shadow-md transition"
+            className="w-72 px-6 py-4 bg-[#ffffff] border border-[#ffffff] rounded-2xl shadow-sm text-[#3e2f1c] hover:shadow-md transition"
           >
             <p className="font-semibold">{item.name}</p>
             <p className="text-sm text-[#7a6a58]">{item.role}</p>

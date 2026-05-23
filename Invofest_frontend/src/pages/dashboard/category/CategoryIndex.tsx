@@ -61,7 +61,7 @@ export default function CategoryIndex() {
         {categories.map((item) => (
           <div
             key={item.id}
-            className="px-6 py-4 bg-red-300 border border-[#e0d6c8] rounded-2xl shadow-sm text-white font-medium hover:shadow-md transition"
+            className="px-6 py-4 bg-[#ffffff] border border-[#ffffff] rounded-2xl shadow-sm text-[#3e2f1c] font-medium hover:shadow-md transition"
           >
             <p>{item.name}</p>
 

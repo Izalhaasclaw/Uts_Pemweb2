@@ -10,7 +10,7 @@ type Pembicara = {
   id: number;
   name: string;
   role: string;
-  image: string;
+  foto: string;
 };
 
 type Event = {

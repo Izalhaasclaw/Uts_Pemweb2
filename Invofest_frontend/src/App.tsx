@@ -19,6 +19,9 @@ import PembicaraCreate from "./pages/dashboard/pembicara/PembicaraCreate";
 import EventCreate from "./pages/dashboard/event/EventCreate";
 import RegisterForm from "./pages/RegisterForm";
 import Biodata from "./pages/dashboard/biodata/Biodata";
+import PembicaraUpdate from "./pages/dashboard/pembicara/PembicaraUpdate";
+import EventUpdate from "./pages/dashboard/event/EventUpdate";
+import CategoryUpdate from "./pages/dashboard/category/CategoryUpdate";
 
 function App() {
 
@@ -54,6 +57,9 @@ function App() {
             <Route path="/dashboard/pembicara/create" element={<PembicaraCreate />} />
             <Route path="/dashboard/event/create" element={<EventCreate />} />
             <Route path="/dashboard/biodata" element={<Biodata />} />
+            <Route path="/dashboard/category/edit/:id" element={<CategoryUpdate />} />
+            <Route path="/dashboard/pembicara/edit/:id" element={<PembicaraUpdate />} />
+            <Route path="/dashboard/event/edit/:id" element={<EventUpdate />} />
           </Route>
         </Route>
 

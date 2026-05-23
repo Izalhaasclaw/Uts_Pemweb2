@@ -42,4 +42,4 @@ model Pembicara{
   createdAt DateTime @map("created_at")
 
   @@map("pembicara")
-}
+}                                            

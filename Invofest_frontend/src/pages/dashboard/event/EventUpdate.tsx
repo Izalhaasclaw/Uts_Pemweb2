@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { z } from "zod";
+import { InputText } from "../../../components/ui/InputText";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../../../components/ui/Button";
 
 type Category = {
   id: number;
@@ -10,116 +15,191 @@ type Pembicara = {
   id: number;
   name: string;
   role: string;
-  image: string;
+  foto: string;
 };
 
-type Event = {
-  id: number;
-  title: string;
+type FormData = {
+  name: string;
+  description: string;
   location: string;
   dateEvent: string;
-  description: string;
-  category: Category;
-  pembicara: Pembicara;
+  categoryId: string;
+  pembicaraId: string;
 };
 
-export default function EventIndex() {
-  const [events, setEvents] = useState<Event[]>([]);
+const schema = z.object({
+  name: z.string().min(1, "Judul event harus diisi"),
+  description: z.string().min(1, "Deskripsi harus diisi"),
+  location: z.string().min(1, "Lokasi harus diisi"),
+  dateEvent: z.string().min(1, "Tanggal event harus diisi"),
+  categoryId: z.string().min(1, "Kategori event harus dipilih"),
+  pembicaraId: z.string().min(1, "Pembicara harus dipilih"),
+});
 
-  const getEvents = async () => {
-    try {
-      const response = await fetch("https://backend-mu-khaki-76.vercel.app/event");
-      const data = await response.json();
-      setEvents(data);
-    } catch (error) {
-      console.error(error);
-    }
+export default function EventUpdate() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [pembicara, setPembicara] = useState<Pembicara[]>([]);
+
+  const {
+  register,
+  handleSubmit,
+  reset,
+  formState: { errors },
+} = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  const getCategories = async () => {
+    const response = await fetch("https://backend-uts-pemweb2.vercel.app/category");
+    const data = await response.json();
+    setCategories(data);
   };
 
-  const handleDelete = async (id: number) => {
-    const confirmDelete = confirm("Yakin ingin menghapus event ini?");
-    if (!confirmDelete) return;
+  const getPembicara = async () => {
+    const response = await fetch("https://backend-uts-pemweb2.vercel.app/pembicara");
+    const data = await response.json();
+    setPembicara(data);
+  };
 
+  const getDetailEvent = async () => {
     try {
-      const response = await fetch(`https://backend-mu-khaki-76.vercel.app/event/${id}`, {
-        method: "DELETE",
+      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/events/${id}`);
+      const data = await response.json();
+      console.log(data);
+
+      reset({
+      name: data.name,
+      description: data.description,
+      location: data.location,
+      dateEvent: data.dateEvent.slice(0, 10),
+      categoryId: String(data.categoryId),
+      pembicaraId: String(data.pembicaraId),
+    });
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/events/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          description: data.description,
+          location: data.location,
+          dateEvent: data.dateEvent,
+          categoryId: Number(data.categoryId),
+          pembicaraId: Number(data.pembicaraId),
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Gagal menghapus event");
+        throw new Error("Gagal mengupdate event");
       }
 
-      alert("Event berhasil dihapus");
-      getEvents();
+      alert("Event berhasil diupdate");
+      navigate("/dashboard/event");
     } catch (error) {
       console.error(error);
-      alert("Event gagal dihapus");
+      alert("Terjadi kesalahan saat mengupdate event");
     }
   };
 
   useEffect(() => {
-    getEvents();
+    getCategories();
+    getPembicara();
+    getDetailEvent();
   }, []);
 
   return (
-    <div>
-      <h1 className="mb-6 text-2xl font-semibold text-[#3e2f1c]">
-        Event
-      </h1>
+    <div className="p-6 max-w-2xl mx-auto">
+      <div className="bg-[#f8f5f0] rounded-2xl shadow-md p-8 border border-[#e0d6c8]">
+        <h2 className="text-2xl font-bold text-[#3e2f1c] mb-6 border-b border-[#d6c7b2] pb-4">
+          Edit Event
+        </h2>
 
-      <Link
-        to="/dashboard/event/create"
-        className="inline-block px-5 py-3 rounded-2xl font-medium bg-[#bfa27a] text-white hover:bg-[#a88c65] transition shadow-sm mb-6"
-      >
-        Create New
-      </Link>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          <InputText
+            label="Event Title"
+            nama="name"
+            register={register}
+            error={errors.name?.message}
+          />
 
-      <div className="flex flex-wrap gap-4">
-        {events.map((item) => (
-          <div
-            key={item.id}
-            className="w-80 px-6 py-4 bg-[#f8f5f0] border border-white
-             rounded-2xl shadow-sm text-[#3e2f1c] hover:shadow-md transition"
-          >
-            <p className="font-semibold">{item.title}</p>
+          <InputText
+            label="Description"
+            nama="description"
+            register={register}
+            error={errors.description?.message}
+          />
 
-            <p className="text-sm text-[#ffffff] mt-1">
-              Lokasi: {item.location}
+          <InputText
+            label="Location"
+            nama="location"
+            register={register}
+            error={errors.location?.message}
+          />
+
+          <InputText
+            label="Event Date"
+            nama="dateEvent"
+            type="date"
+            register={register}
+            error={errors.dateEvent?.message}
+          />
+
+          <div>
+            <label className="block mb-2 font-medium text-[#3e2f1c]">
+              Category Event
+            </label>
+            <select
+              {...register("categoryId")}
+              className="w-full px-4 py-3 rounded-xl border border-[#d6c7b2] bg-white"
+            >
+              <option value="">Pilih Category Event</option>
+              {categories.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+            <p className="text-sm text-red-500 mt-1">
+              {errors.categoryId?.message}
             </p>
-
-            <p className="text-sm text-[#ffffff] mt-1">
-              Tanggal: {new Date(item.dateEvent).toLocaleDateString("id-ID")}
-            </p>
-
-            <p className="text-sm text-[#ffffff] mt-1">
-              Category: {item.category?.name}
-            </p>
-
-            <p className="text-sm text-[#ffffff] mt-1">
-              Pembicara: {item.pembicara?.name}
-            </p>
-
-            <p className="text-sm text-[#ffffff] mt-2">
-              {item.description}
-            </p>
-
-            <div className="flex gap-2 mt-4">
-              <Link
-                to={`/dashboard/event/edit/${item.id}`}
-                className="px-4 py-2 rounded-xl bg-red-600 text-white text-sm hover:bg-red-700"
-              >
-                Edit
-              </Link>
-
-              <button
-                onClick={() => handleDelete(item.id)}
-                className="px-4 py-2 rounded-xl bg-red-600 text-white text-sm hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
           </div>
-        ))}
+
+          <div>
+            <label className="block mb-2 font-medium text-[#3e2f1c]">
+              Pembicara
+            </label>
+            <select
+              {...register("pembicaraId")}
+              className="w-full px-4 py-3 rounded-xl border border-[#d6c7b2] bg-white"
+            >
+              <option value="">Pilih Pembicara</option>
+              {pembicara.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name} - {item.role}
+                </option>
+              ))}
+            </select>
+            <p className="text-sm text-red-500 mt-1">
+              {errors.pembicaraId?.message}
+            </p>
+          </div>
+
+          <div className="flex justify-start mt-4">
+            <Button type="submit" label="Update Event" />
+          </div>
+        </form>
       </div>
     </div>
   );

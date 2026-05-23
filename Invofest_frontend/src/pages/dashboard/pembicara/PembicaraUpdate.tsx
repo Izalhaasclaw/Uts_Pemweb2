@@ -9,13 +9,13 @@ import Button from "../../../components/ui/Button";
 type FormData = {
   name: string;
   role: string;
-  image: string;
+  foto: string;
 };
 
 const schema = z.object({
   name: z.string().min(1, "Nama pembicara harus diisi"),
   role: z.string().min(1, "role harus diisi"),
-  image: z.string().min(1, "image harus diisi"),
+  foto: z.string().min(1, "foto harus diisi"),
 });
 
 export default function PembicaraUpdate() {
@@ -38,7 +38,7 @@ export default function PembicaraUpdate() {
 
       setValue("name", data.name);
       setValue("role", data.role);
-      setValue("image", data.image);
+      setValue("foto", data.foto);
     } catch (error) {
       console.error(error);
     }
@@ -93,10 +93,10 @@ export default function PembicaraUpdate() {
           />
 
           <InputText
-            label="image"
-            nama="image"
+            label="Foto"
+            nama="foto"
             register={register}
-            error={errors.image?.message}
+            error={errors.foto?.message}
           />
 
           <div className="flex justify-start mt-4">

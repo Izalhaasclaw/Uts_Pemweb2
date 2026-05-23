@@ -108,7 +108,7 @@ export default function EventCreate() {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <InputText
             label="Event Title"
-            nama="title"
+            nama="name"
             register={register}
             error={errors.title?.message}
           />

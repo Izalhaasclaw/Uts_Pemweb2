@@ -6,7 +6,7 @@ let categories: Category[] = [];
 
 //1 menapilkan list category
 export const getCategories = async (req: Request, res: Response) => {
-    //mngambil data dari database
+    //mengambil data dari database
     try {
         ///jika berhasil
         const allevents = await prisma.category.findMany({

@@ -87,7 +87,7 @@ export default function BiodataIndex() {
               </span>
 
               <p className="text-[#000000] text-sm leading-relaxed bg-[#ffffff] p-4 rounded-xl border border-[#7d2020]">
-                Saya adalah mahasiswa Teknik Informatika yang memiliki passion besar dalam membangun solusi digital. Saat ini, saya aktif mendalami ekosistem Full-stack Web Development (HTML, CSS, React) dan pemrosesan data menggunakan Python. Selain itu, saya juga mengeksplorasi pengembangan aplikasi berbasis Java untuk memperkuat pemahaman saya tentang pemrograman berorientasi objek.
+                Saya adalah mahasiswa Teknik Informatika yang memiliki passion besar dalam membangun solusi digital. Saat ini, saya aktif mendalami ekosistem Full-stack Web Development (HTML, CSS, React) dan pemrosesan data menggunakan Python. Selain itu, saya juga mengeksplorasi pengembangan aplikasi berbasis Java untuk memperkuat pemahaman saya tentang Pemrograman berorientasi objek.
               </p>
 
             </div>

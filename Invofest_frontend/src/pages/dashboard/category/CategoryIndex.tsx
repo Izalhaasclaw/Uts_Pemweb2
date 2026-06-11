@@ -11,7 +11,7 @@ export default function CategoryIndex() {
 
   const getCategories = async () => {
     try {
-      const response = await fetch("https://backend-uts-pemweb2.vercel.app/categories");
+      const response = await fetch("https://localhost:3000/categories");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
@@ -24,7 +24,7 @@ export default function CategoryIndex() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/categories/${id}`, {
+      const response = await fetch(`https://localhost:3000/categories/${id}`, {
         method: "DELETE",
       });
 

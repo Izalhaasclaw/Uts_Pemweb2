@@ -53,20 +53,20 @@ export default function EventUpdate() {
   });
 
   const getCategories = async () => {
-    const response = await fetch("https://backend-uts-pemweb2.vercel.app/category");
+    const response = await fetch("https://localhost:3000/category");
     const data = await response.json();
     setCategories(data);
   };
 
   const getPembicara = async () => {
-    const response = await fetch("https://backend-uts-pemweb2.vercel.app/pembicara");
+    const response = await fetch("https://localhost:3000/pembicara");
     const data = await response.json();
     setPembicara(data);
   };
 
   const getDetailEvent = async () => {
     try {
-      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/events/${id}`);
+      const response = await fetch(`https://localhost:3000/events/${id}`);
       const data = await response.json();
       console.log(data);
 
@@ -86,7 +86,7 @@ export default function EventUpdate() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/events/${id}`, {
+      const response = await fetch(`https://localhost:3000/events/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

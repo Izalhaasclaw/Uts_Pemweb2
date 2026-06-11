@@ -29,7 +29,7 @@ export default function CategoryUpdate() {
 
   const getDetailCategory = async () => {
     try {
-      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/category/${id}`);
+      const response = await fetch(`https://localhost:3000/category/${id}`);
       const data = await response.json();
 
       setValue("name", data.name);
@@ -40,7 +40,7 @@ export default function CategoryUpdate() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch(`https://backend-uts-pemweb2.vercel.app/category/${id}`, {
+      const response = await fetch(`https://localhost:3000/category/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -22,6 +22,9 @@ import Biodata from "./pages/dashboard/biodata/Biodata";
 import PembicaraUpdate from "./pages/dashboard/pembicara/PembicaraUpdate";
 import EventUpdate from "./pages/dashboard/event/EventUpdate";
 import CategoryUpdate from "./pages/dashboard/category/CategoryUpdate";
+import UserCreate from "./pages/dashboard/users/UserCreate";
+import UserEdit from "./pages/dashboard/users/UserEdit";
+import UserIndex from "./pages/dashboard/users/UserIndex";
 
 function App() {
 
@@ -60,6 +63,10 @@ function App() {
             <Route path="/dashboard/category/edit/:id" element={<CategoryUpdate />} />
             <Route path="/dashboard/pembicara/edit/:id" element={<PembicaraUpdate />} />
             <Route path="/dashboard/event/edit/:id" element={<EventUpdate />} />
+            <Route path="/dashboard/users" element={<UserIndex />} />
+            <Route path="/dashboard/users/create" element={<UserCreate />} />
+            <Route path="/dashboard/users/edit/:id" element={<UserEdit />} /> 
+
           </Route>
         </Route>
 

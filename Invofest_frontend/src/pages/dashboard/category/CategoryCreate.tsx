@@ -27,7 +27,7 @@ export default function CategoryCreate() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch("https://backend-uts-pemweb2.vercel.app/categories", {
+      const response = await fetch("https://localhost:3000/categories", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

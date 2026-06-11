@@ -44,8 +44,12 @@ export default function DashboardLayout() {
                             </Link>
                         </li>
                         <Link to="/dashboard/biodata"className="p-4 bg-red-900 text-white rounded block text-center hover:bg-red-700 cursor-pointer"
-              >         Biodata
+                >         Biodata
                     </Link>
+                    <Link to="/dashboard/users"className="p-4 bg-red-900 text-white rounded block text-center hover:bg-red-700 cursor-pointer"
+                >         User  
+                    </Link>
+                        
                     </ul>
                 </div>
 

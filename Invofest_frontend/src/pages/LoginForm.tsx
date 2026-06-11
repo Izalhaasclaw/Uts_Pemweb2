@@ -1,51 +1,67 @@
 import { useForm } from "react-hook-form";
 import { InputText } from "../components/ui/InputText";
 import { InputPassword } from "../components/ui/InputPassword";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Button from "../components/ui/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import { useAuthStore } from "../store/useAuthStore";
-
 type FormData = {
     email: string;
     password: string;
-}
+};
 
 const schema = z.object({
     email: z.string().min(1, "Email harus diisi"),
-    password: z.string().min(8, "Password harus diisi"),
-})
+    password: z.string().min(5, "Password harus diisi"),
+});
+export default function LoginForm() {
 
-export default function LoginForm(){
     const navigate = useNavigate();
     const login = useAuthStore((state) => state.login);
 
-    const { 
-        register, 
-        handleSubmit, 
-        formState: { errors }
-     } = useForm<FormData>({
-        resolver: zodResolver(schema)
-     });
- 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
-        if (data.email == "24090074" && data.password == "24090074") {
-            alert("Login Berhasil");
+    const { register, handleSubmit, reset, formState:{errors} } = useForm<FormData>({
+        resolver : zodResolver(schema)
+    });
+    // console.log(errors  )
+const onSubmit = async (data: FormData) => {
+  try {
+    const response = await fetch(
+      "http://localhost:3000/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      }
+    );
 
-            login(data.email);
-        
-            navigate("/dashboard");
-        }
-        else {
-            alert("Email atau password anda salah");
-        }
-    };
+    const result = await response.json();
 
+    if (!response.ok) {
+      alert(result.message);
+      return;
+    }
+
+    console.log("Login Success", result);
+
+    localStorage.setItem("token", result.token);
+
+    login(result.user.name);
+
+    reset();
+    navigate("/dashboard");
+
+  } catch (error) {
+    console.error(error);
+    alert("Terjadi kesalahan saat login");
+  }
+};
 
 
     return (

@@ -4,9 +4,17 @@ import { InputPassword } from "../components/ui/InputPassword";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Button from "../components/ui/Button";
-import { Link } from "react-router-dom";
+import { Link, type ErrorResponse } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { AxiosError } from "axios"
+
+import type { LoginInput, LoginResponse } from "../types/auth"
+import { api } from "../lib/axios"
+
+
 type FormData = {
     email: string;
     password: string;
@@ -16,54 +24,48 @@ const schema = z.object({
     email: z.string().min(1, "Email harus diisi"),
     password: z.string().min(5, "Password harus diisi"),
 });
-export default function LoginForm() {
 
+export default function LoginForm() {
+   
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
     const login = useAuthStore((state) => state.login);
 
-    const { register, handleSubmit, reset, formState:{errors} } = useForm<FormData>({
+    const { register, handleSubmit, formState:{errors} } = useForm<FormData>({
         resolver : zodResolver(schema)
     });
+
+const LoginMutation = useMutation({
+  mutationFn: async(credentials: LoginInput) => {
+    const response = await api.post<LoginResponse>("/auth/login", credentials);
+
+    return response.data
+  },
+
+  onSuccess: (data) => {
+    login({
+      user: data.user,
+      token: data.token
+
+    });
+
+    queryClient.setQueryData(["user"], data.user);
+
+    navigate("/dashboard");
+  },
+  
+  onError: (error: AxiosError<ErrorResponse>) => {
+    const message = error.message || "Terjadi kesalahan "
+
+    alert(`login Gagal : ${message}`)
+  }
+})
     // console.log(errors  )
 const onSubmit = async (data: FormData) => {
-  try {
-    const response = await fetch(
-      "http://localhost:3000/auth/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
-      }
-    );
+  LoginMutation.mutate(data)
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      alert(result.message);
-      return;
-    }
-
-    console.log("Login Success", result);
-
-    localStorage.setItem("token", result.token);
-
-    login(result.user.name);
-
-    reset();
-    navigate("/dashboard");
-
-  } catch (error) {
-    console.error(error);
-    alert("Terjadi kesalahan saat login");
-  }
 };
-
-
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>

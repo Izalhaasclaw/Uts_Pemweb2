@@ -1,3 +1,4 @@
+import { Query, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Copetition from "./pages/Competition";
 import HomePage from "./pages/HomePage_backup"
 import LoginForm from "./pages/LoginForm";
@@ -26,9 +27,12 @@ import UserCreate from "./pages/dashboard/users/UserCreate";
 import UserEdit from "./pages/dashboard/users/UserEdit";
 import UserIndex from "./pages/dashboard/users/UserIndex";
 
+const queryClient = new QueryClient();
+
 function App() {
 
   return (
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <Routes>
 
@@ -72,6 +76,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
